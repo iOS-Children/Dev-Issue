@@ -41,18 +41,18 @@ let requestData = requestResult
             }
             .asObservable()
             //.asDriver(onErrorDriveWith: .empty())
-        let t = requestData.subscribe{
+let t = requestData.subscribe{
             print($0)
         }.disposed(by: disposeBag)
         
-        self.errorCheck = requestData
+self.errorCheck = requestData
             .filter { $0 != .success }
             .map { action in
                 return model.setAlert(action: action)
             }
             .asSignal(onErrorSignalWith: .empty())
         
-        self.nextCheck = requestData
+self.nextCheck = requestData
             .filter { $0 == .success }
             .map { action -> Void in
                 return Void()
